@@ -18,7 +18,7 @@ struct Int {
         return std::to_string(value);
     }
 
-    using canonical = Int<value>;
+    using canonize = Int<value>;
 };
 
 }

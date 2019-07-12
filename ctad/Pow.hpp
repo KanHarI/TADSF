@@ -6,7 +6,7 @@
 
 namespace CTAD {
 
-template <class Tbase, class Texp>
+template <class... Ts>
 struct Pow;
 
 };
@@ -14,22 +14,23 @@ struct Pow;
 #include "Mul.hpp"
 #include "Add.hpp"
 #include "Log.hpp"
+#include "Canonical.hpp"
 
 namespace CTAD {
 
 template <class Tbase, class Texp>
-struct Pow {
+struct Pow<Tbase, Texp> {
     static double eval(double x) {
         return pow(Tbase::eval(x), Texp::eval(x));
     }
 
-    using derivative = typename Mul<Pow<Tbase, Texp>, typename Mul<Log<Tbase>, Texp>::derivative>::canonical;
+    using derivative = Mul<Pow<Tbase, Texp>, typename Mul<Log<Tbase>, Texp>::derivative>;
 
     static std::string to_str() {
         return "(" + Tbase::to_str() + "^" + Texp::to_str() + ")";
     }
 
-    using canonical = Pow<typename Tbase::canonical, typename Texp::canonical>;
+    using canonize = Pow<typename Tbase::canonize, typename Texp::canonize>;
 };
 
 }

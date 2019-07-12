@@ -3,7 +3,7 @@
 
 namespace CTAD {
 
-template <class T1, class T2>
+template <class... Ts>
 struct Div;
 
 }
@@ -12,29 +12,30 @@ struct Div;
 #include "Add.hpp"
 #include "Mul.hpp"
 #include "Pow.hpp"
+#include "Canonical.hpp"
 
 namespace CTAD {
 
 template <class T1, class T2>
-struct Div {
+struct Div<T1, T2> {
     static double eval(double x) {
         return T1::eval(x)/T2::eval(x);
     }
 
     using derivative = 
-        typename Div<
+        Div<
             Add<
                 Mul<typename T1::derivative, T2>,
                 Mul<Int<-1>, T1, typename T2::derivative>
             >,
             Pow<T2, Int<2>>
-        >::canonical;
+        >;
 
     static std::string to_str() {
         return "(" + T1::to_str() + "/" + T2::to_str() + ")";
     }
 
-    using canonical = Div<typename T1::canonical, typename T2::canonical>;
+    using canonize = Div<typename T1::canonize, typename T2::canonize>;
 };
 
 template <class _>

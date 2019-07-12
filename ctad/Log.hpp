@@ -6,27 +6,28 @@
 
 namespace CTAD {
 
-template <class T>
+template <class... Ts>
 struct Log;
 }
 
 #include "Div.hpp"
+#include "Canonical.hpp"
 
 namespace CTAD {
 
 template <class T>
-struct Log {
+struct Log<T> {
     static double eval(double x) {
         return log(x);
     }
 
-    using derivative = typename Div<typename T::derivative, T>::canonical;
+    using derivative = Div<typename T::derivative, T>;
 
     static std::string to_str() {
         return "log(" + T::to_str() + ")";
     }
 
-    using canonical = Log<typename T::canonical>;
+    using canonize = Log<typename T::canonize>;
 };
 
 }

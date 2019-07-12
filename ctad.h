@@ -6,3 +6,5 @@
 #include "ctad/Mul.hpp"
 #include "ctad/Pow.hpp"
 #include "ctad/X.hpp"
+#include "ctad/Canonical.hpp"
+#include "ctad/D.hpp"

@@ -24,7 +24,7 @@ struct X {
         return "x";
     }
 
-    using canonical = X;
+    using canonize = X;
 };
 
 }

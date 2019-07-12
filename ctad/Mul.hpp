@@ -13,6 +13,7 @@ struct Mul;
 #include "Int.hpp"
 #include "Add.hpp"
 #include "Pow.hpp"
+#include "Canonical.hpp"
 
 namespace CTAD {
 
@@ -25,19 +26,19 @@ struct Mul<T1, T2> {
         return T1::eval(x) * T2::eval(x);
     }
 
-    using derivative = typename Add<Mul<typename T1::derivative, T2>, Mul<T1, typename T2::derivative>>::canonical;
+    using derivative = Add<Mul<typename T1::derivative, T2>, Mul<T1, typename T2::derivative>>;
 
     static std::string to_str() {
         return (T1::to_str() + "*" + T2::to_str());
     }
 
-    using canonical = Mul<typename T1::canonical, typename T2::canonical>;
+    using canonize = Mul<typename T1::canonize, typename T2::canonize>;
 };
 
 template <class T1, class T2, class T3, class... Ts>
 struct Mul<T1, T2, T3, Ts...> : public Mul<T1, Mul<T2, T3, Ts...>> {};
 
-// Bringing to canonical form
+// Bringing to canonize form
 
 template <class _>
 struct Mul<Int<0>, _> : public Int<0> {};
@@ -77,6 +78,12 @@ struct Mul<Int<0>, Int<v>> : public Int<0> {};
 
 template <int v>
 struct Mul<Int<v>, Int<0>> : public Int<0> {};
+
+template <int v>
+struct Mul<Int<1>, Int<v>> : public Int<v> {};
+
+template <int v>
+struct Mul<Int<v>, Int<1>> : public Int<v> {};
 
 }
 

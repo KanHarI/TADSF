@@ -13,6 +13,7 @@ struct Add;
 #include "Int.hpp"
 #include "Mul.hpp"
 #include "X.hpp"
+#include "Canonical.hpp"
 
 namespace CTAD {
 
@@ -28,13 +29,13 @@ struct Add<T1, T2> {
         return T1::eval(x) + T2::eval(x);
     }
 
-    using derivative = typename Add<typename T1::derivative, typename T2::derivative>::canonical;
+    using derivative = Add<typename T1::derivative, typename T2::derivative>;
 
     static std::string to_str() {
         return T1::to_str() + "+" + T2::to_str();
     }
 
-    using canonical = Add<typename T1::canonical, typename T2::canonical>;
+    using canonize = Add<typename T1::canonize, typename T2::canonize>;
 };
 
 
@@ -42,7 +43,7 @@ template <class T1, class T2, class T3, class... Ts>
 struct Add<T1, T2, T3, Ts...> : public Add<T1, Add<T2, T3, Ts...>> {};
 
 
-// Bringing to canonical form
+// Bringing to canonize form
 
 
 template <class T>
