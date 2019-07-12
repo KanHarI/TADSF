@@ -12,7 +12,7 @@ struct Add;
 
 #include "Int.hpp"
 #include "Mul.hpp"
-#include "../X.hpp"
+#include "X.hpp"
 
 namespace CTAD {
 
