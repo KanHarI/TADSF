@@ -29,7 +29,7 @@ struct Add<T1, T2> {
     }
 
     static std::string to_str() {
-        return T1::to_str() + "+" + T2::to_str();
+        return "(" + T1::to_str() + "+" + T2::to_str() + ")";
     }
 
     using canonize = Add<typename T1::canonize, typename T2::canonize>;

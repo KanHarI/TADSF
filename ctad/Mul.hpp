@@ -26,7 +26,7 @@ struct Mul<T1, T2> {
     }
 
     static std::string to_str() {
-        return (T1::to_str() + "*" + T2::to_str());
+        return "(" + T1::to_str() + "*" + T2::to_str() + ")";
     }
 
     using canonize = Mul<typename T1::canonize, typename T2::canonize>;
@@ -82,11 +82,23 @@ struct Mul<Int<1>, Int<v>> : public Int<v> {};
 template <int v>
 struct Mul<Int<v>, Int<1>> : public Int<v> {};
 
+template <class T, int v>
+struct Mul<T, Int<v>> : public Mul<Int<v>, T> {};
+
+template <class T1, class T2, int v>
+struct Mul<T1, Mul<Int<v>, T2>> : public Mul<Int<v>, Mul<T1, T2>> {};
+
+template <class T1, class T2>
+struct Mul<T1, Mul<Int<1>, T2>> : public Mul<T1, T2> {};
+
 template <class T, class Texp>
 struct Mul<T, Pow<T, Texp>> : public Pow<T, Add<Int<1>, Texp>> {};
 
 template <class T, class Texp>
 struct Mul<Pow<T, Texp>, T> : public Pow<T, Add<Texp, Int<1>>> {};
+
+template <class T, class Texp1, class Texp2>
+struct Mul<Pow<T, Texp1>, Pow<T, Texp2>> : public Pow<T, Add<Texp1, Texp2>> {};
 
 }
 

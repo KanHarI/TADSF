@@ -11,10 +11,7 @@ struct Pow;
 
 };
 
-#include "Mul.hpp"
-#include "Add.hpp"
-#include "Log.hpp"
-#include "Canonical.hpp"
+#include "Int.hpp"
 
 namespace CTAD {
 
@@ -30,6 +27,16 @@ struct Pow<Tbase, Texp> {
 
     using canonize = Pow<typename Tbase::canonize, typename Texp::canonize>;
 };
+
+template <class Tbase>
+struct Pow<Tbase, Int<1>> : public Tbase {};
+
+template <class Tbase>
+struct Pow<Tbase, Int<0>> : public Int<1> {};
+
+struct _zeroToZeroErr {};
+template <>
+struct Pow<Int<0>, Int<0>> : public _zeroToZeroErr {};
 
 }
 

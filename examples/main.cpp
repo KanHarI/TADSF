@@ -9,7 +9,7 @@
 using namespace CTAD;
 
 int main() {
-    using _my_func = Pow<X, Int<2>>;
+    using _my_func = Pow<X, X>;
     using my_func = Canonical<_my_func>;
     int status;
     
