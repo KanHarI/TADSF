@@ -13,7 +13,6 @@ struct Add;
 #include "Int.hpp"
 #include "Mul.hpp"
 #include "X.hpp"
-#include "Canonical.hpp"
 
 namespace CTAD {
 
@@ -28,8 +27,6 @@ struct Add<T1, T2> {
     static double eval(double x) {
         return T1::eval(x) + T2::eval(x);
     }
-
-    using derivative = Add<typename T1::derivative, typename T2::derivative>;
 
     static std::string to_str() {
         return T1::to_str() + "+" + T2::to_str();

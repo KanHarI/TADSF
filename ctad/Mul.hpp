@@ -13,7 +13,6 @@ struct Mul;
 #include "Int.hpp"
 #include "Add.hpp"
 #include "Pow.hpp"
-#include "Canonical.hpp"
 
 namespace CTAD {
 
@@ -25,8 +24,6 @@ struct Mul<T1, T2> {
     static double eval(double x) {
         return T1::eval(x) * T2::eval(x);
     }
-
-    using derivative = Add<Mul<typename T1::derivative, T2>, Mul<T1, typename T2::derivative>>;
 
     static std::string to_str() {
         return (T1::to_str() + "*" + T2::to_str());
@@ -84,6 +81,12 @@ struct Mul<Int<1>, Int<v>> : public Int<v> {};
 
 template <int v>
 struct Mul<Int<v>, Int<1>> : public Int<v> {};
+
+template <class T, class Texp>
+struct Mul<T, Pow<T, Texp>> : public Pow<T, Add<Int<1>, Texp>> {};
+
+template <class T, class Texp>
+struct Mul<Pow<T, Texp>, T> : public Pow<T, Add<Texp, Int<1>>> {};
 
 }
 

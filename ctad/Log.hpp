@@ -10,8 +10,8 @@ template <class... Ts>
 struct Log;
 }
 
-#include "Div.hpp"
-#include "Canonical.hpp"
+#include "Mul.hpp"
+#include "Pow.hpp"
 
 namespace CTAD {
 
@@ -20,8 +20,6 @@ struct Log<T> {
     static double eval(double x) {
         return log(x);
     }
-
-    using derivative = Div<typename T::derivative, T>;
 
     static std::string to_str() {
         return "log(" + T::to_str() + ")";

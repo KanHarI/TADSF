@@ -24,8 +24,6 @@ struct Pow<Tbase, Texp> {
         return pow(Tbase::eval(x), Texp::eval(x));
     }
 
-    using derivative = Mul<Pow<Tbase, Texp>, typename Mul<Log<Tbase>, Texp>::derivative>;
-
     static std::string to_str() {
         return "(" + Tbase::to_str() + "^" + Texp::to_str() + ")";
     }
