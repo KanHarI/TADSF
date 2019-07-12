@@ -15,16 +15,18 @@ struct Log;
 namespace CTAD {
 
 template <class T>
-struct Log<T> {
+struct Log {
     static double eval(double x) {
         return log(x);
     }
 
-    using derivative = Div<typename T::derivative, T>;
+    using derivative = typename Div<typename T::derivative, T>::canonical;
 
     static std::string to_str() {
         return "log(" + T::to_str() + ")";
     }
+
+    using canonical = Log<typename T::canonical>;
 };
 
 }

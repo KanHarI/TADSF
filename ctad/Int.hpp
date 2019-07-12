@@ -7,7 +7,7 @@ namespace CTAD {
 
 template <int value>
 struct Int {
-    static constexpr val = value;
+    static constexpr int val = value;
     static double eval(double x) {
         return value;
     }
@@ -17,6 +17,8 @@ struct Int {
     static std::string to_str() {
         return std::to_string(value);
     }
+
+    using canonical = Int<value>;
 };
 
 }

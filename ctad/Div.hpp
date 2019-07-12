@@ -22,29 +22,35 @@ struct Div {
     }
 
     using derivative = 
-        Div<
+        typename Div<
             Add<
                 Mul<typename T1::derivative, T2>,
                 Mul<Int<-1>, T1, typename T2::derivative>
             >,
-            Pow<T2, 2>
-        >;
+            Pow<T2, Int<2>>
+        >::canonical;
+
+    static std::string to_str() {
+        return "(" + T1::to_str() + "/" + T2::to_str() + ")";
+    }
+
+    using canonical = Div<typename T1::canonical, typename T2::canonical>;
 };
 
 template <class _>
-struct Div<_, Int<0>> : public typename _::divisionByZeroErr;
+struct Div<_, Int<0>> : public _::divisionByZeroErr {};
 
 template <class _>
-struct Div<Int<0>, _> : public Int<0>;
+struct Div<Int<0>, _> : public Int<0> {};
 
 template <class T>
-struct Div<T, T> : public Int<1>;
+struct Div<T, T> : public Int<1> {};
 
-template <class T, class... Ts1 class... Ts2>
+template <class T, class... Ts1, class... Ts2>
 struct Div<
     Mul<T, Ts1...>,
     Mul<T, Ts2...>
-> : public Div<Mul<Ts1...>, Mul<Ts2...>>;
+> : public Div<Mul<Ts1...>, Mul<Ts2...>> {};
 
 }
 
