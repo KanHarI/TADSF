@@ -2,6 +2,7 @@
 #define MUL_HPP
 
 #include <string>
+#include <type_traits>
 
 namespace CTAD {
 
@@ -13,6 +14,7 @@ struct Mul;
 #include "Int.hpp"
 #include "Add.hpp"
 #include "Pow.hpp"
+#include "utils.hpp"
 
 namespace CTAD {
 
@@ -88,8 +90,17 @@ struct Mul<T, Int<v>> : public Mul<Int<v>, T> {};
 template <class T1, class T2, int v>
 struct Mul<T1, Mul<Int<v>, T2>> : public Mul<Int<v>, Mul<T1, T2>> {};
 
+template <class T, int v1, int v2>
+struct Mul<Int<v1>, Mul<Int<v2>, T>> : public Mul<Int<v1*v2>, T> {};
+
+template <class T2, int v>
+struct Mul<Int<0>, Mul<Int<v>, T2>> : public Int<0> {};
+
 template <class T1, class T2>
 struct Mul<T1, Mul<Int<1>, T2>> : public Mul<T1, T2> {};
+
+template <int v, class T>
+struct Mul<Int<v>, Mul<Int<1>, T>> : public Mul<Int<v>, T> {};
 
 template <class T, class Texp>
 struct Mul<T, Pow<T, Texp>> : public Pow<T, Add<Int<1>, Texp>> {};
@@ -99,6 +110,43 @@ struct Mul<Pow<T, Texp>, T> : public Pow<T, Add<Texp, Int<1>>> {};
 
 template <class T, class Texp1, class Texp2>
 struct Mul<Pow<T, Texp1>, Pow<T, Texp2>> : public Pow<T, Add<Texp1, Texp2>> {};
+
+template <class T, class Texp>
+struct Mul<Pow<T, Texp>, Pow<T, Texp>> : public Pow<T, Add<Texp, Texp>> {};
+
+template <int v1, int v2>
+struct Mul<Int<v1>, Pow<Int<v2>, Int<-1>>> {
+    static constexpr int _v1 = v1/gcd(v1, v2);
+    static constexpr int _v2 = v2/gcd(v1, v2);
+
+    static double eval(double x) {
+        return static_cast<double>(_v1)/static_cast<double>(_v2);
+    }
+
+    static std::string to_str() {
+        return "(" + std::to_string(_v1) + "/" + std::to_string(_v2) + ")";
+    }
+
+    using canonize =
+        typename std::conditional<
+            _v2==1,
+            Mul<Int<_v1>, typename Pow<Int<_v2>, Int<-1>>::canonize>,
+            Int<_v1>
+        >::type;
+};
+
+template <int v2>
+struct Mul<Int<0>, Pow<Int<v2>, Int<-1>>> : public Int<0> {};
+
+template <int v1, int v2, class T2, int vexp2>
+struct Mul<Int<v1>, Pow<Mul<Int<v2>, T2>, Int<vexp2>>> :
+    public Mul<
+        Mul<
+            Int<v1>,
+            Pow<Int<v2>, Int<vexp2>>
+        >,
+        Pow<T2, Int<vexp2>>
+    > {};
 
 }
 

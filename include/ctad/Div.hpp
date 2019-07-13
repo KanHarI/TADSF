@@ -15,8 +15,6 @@ struct Div;
 #include "Mul.hpp"
 #include "Pow.hpp"
 
-#include "gcd.hpp"
-
 namespace CTAD {
 
 template <class T1, class T2>
@@ -30,14 +28,6 @@ struct Div<Int<0>, _> : public Int<0> {};
 
 template <class T>
 struct Div<T, T> : public Int<1> {};
-
-template <int v1, int v2>
-struct Div<Int<v1>, Int<v2>> : public 
-    std::conditional<
-        gcd(v1, v2) == 1,
-        Mul<Int<v1>, Pow<Int<v2>, Int<-1>>>,
-        Div<Int<v1/gcd(v1, v2)>, Int<v2/gcd(v1, v2)>>
-    >::type {};
 
 }
 

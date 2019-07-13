@@ -28,6 +28,13 @@ struct Log<T> {
     using canonize = Log<typename T::canonize>;
 };
 
+struct _logZeroErr {};
+template <>
+struct Log<Int<0>> : public _logZeroErr {};
+
+template <>
+struct Log<Int<1>> : public Int<0> {};
+
 }
 
 #endif
