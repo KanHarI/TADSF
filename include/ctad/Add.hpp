@@ -40,17 +40,11 @@ template <class T1, class T2, class T3, class... Ts>
 struct Add<T1, T2, T3, Ts...> : public Add<T1, Add<T2, T3, Ts...>> {};
 
 
-// Bringing to canonize form
+// Bringing to canonical form
 
 
 template <class T>
 struct Add<T, T> : public Mul<Int<2>, T> {};
-
-template <class T>
-struct Add<T, Mul<Int<-1>, T>> : public Int<0> {};
-
-template <class T>
-struct Add<Mul<Int<-1>, T>, T> : public Int<0> {};
 
 template <int v>
 struct Add<Int<v>, X> : public Add<X, Int<v>> {};
@@ -64,11 +58,23 @@ struct Add<Int<v1>, Int<v2>> : public Int<v1+v2> {};
 template <int v>
 struct Add<Int<v>, Int<v>> : public Int<2*v> {};
 
+template <int v>
+struct Add<Int<0>, Int<v>> : public Int<v> {};
+
+template <int v>
+struct Add<Int<v>, Int<0>> : public Int<v> {};
+
 template <class T>
 struct Add<T, Int<0>> : public T {};
 
 template <>
 struct Add<Int<0>, Int<0>> : public Int<0> {};
+
+template <class T>
+struct Add<T, Mul<Int<-1>, T>> : public Int<0> {};
+
+template <class T>
+struct Add<Mul<Int<-1>, T>, T> : public Int<0> {};
 
 /*
 template <class T, class T2>

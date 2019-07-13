@@ -35,8 +35,6 @@ struct Mul<T1, T2> {
 template <class T1, class T2, class T3, class... Ts>
 struct Mul<T1, T2, T3, Ts...> : public Mul<T1, Mul<T2, T3, Ts...>> {};
 
-// Bringing to canonize form
-
 template <class _>
 struct Mul<Int<0>, _> : public Int<0> {};
 
@@ -48,6 +46,8 @@ struct Mul<T, Int<1>> : public T {};
 
 template <class T>
 struct Mul<Int<1>, T> : public T {};
+
+// Bringing to canonical form
 
 template <class T>
 struct Mul<T, T> : public Pow<T, Int<2>> {};

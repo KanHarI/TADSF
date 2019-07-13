@@ -9,8 +9,7 @@
 using namespace CTAD;
 
 int main() {
-    using _my_func = Pow<X, X>;
-    using my_func = Canonical<_my_func>;
+    using my_func = Add<Pow<X, X>, Pow<X,Int<3>>>;
     int status;
     
     std::cout << "My func: " << my_func::to_str() << std::endl;
