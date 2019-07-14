@@ -20,8 +20,8 @@ constexpr int ctpow(int base, int exp) {
         if (exp%2) {
             acc *= base;
         }
-        exp >> 1;
-        base << 1;
+        exp >>= 1;
+        base <<= 1;
     }
     return acc;
 }

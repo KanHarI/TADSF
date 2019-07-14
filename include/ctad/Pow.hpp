@@ -13,6 +13,7 @@ struct Pow;
 
 #include "Int.hpp"
 #include "utils.hpp"
+#include "consts.hpp"
 
 namespace CTAD {
 
@@ -64,9 +65,13 @@ struct Pow<Int<vbase>, Int<vexp>> {
     
     static double eval(double x) {
         if (_vexp == 1) {
-            return static_cast<double>(vbase);
+            return static_cast<double>(_vbase);
         }
-        return 1.0/static_cast<double>(vbase);
+        return 1.0/static_cast<double>(_vbase);
+    }
+
+    static std::string to_str() {
+        return "(" + Int<vbase>::to_str() + "^" + Int<vexp>::to_str() + ")";
     }
 
     using canonize = Pow<Int<_vbase>, Int<_vexp>>;

@@ -8,3 +8,4 @@
 #include "ctad/X.hpp"
 #include "ctad/Canonical.hpp"
 #include "ctad/D.hpp"
+#include "ctad/consts.hpp"

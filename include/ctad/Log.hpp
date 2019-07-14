@@ -12,6 +12,7 @@ struct Log;
 
 #include "Mul.hpp"
 #include "Pow.hpp"
+#include "consts.hpp"
 
 namespace CTAD {
 
@@ -34,6 +35,9 @@ struct Log<Int<0>> : public _logZeroErr {};
 
 template <>
 struct Log<Int<1>> : public Int<0> {};
+
+template <>
+struct Log<E> : public Int<1> {};
 
 }
 

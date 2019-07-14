@@ -42,6 +42,28 @@ struct _D<Log<T>> {
 };
 
 template <class T>
+struct _D<Sin<T>> {
+    using comp = Mul<Cos<T>, typename _D<T>::comp>;
+};
+
+template <class T>
+struct _D<Cos<T>> {
+    using comp = Mul<Int<-1>, Sin<T>, typename _D<T>::comp>;
+};
+
+template <class T>
+struct _D<Arcsin<T>> {
+    using comp =
+        Div<
+            typename _D<T>::comp,
+            Pow<
+                Add<Int<1>, Mul<Int<-1>, Pow<X, Int<2>>>>,
+                Div<Int<1>, Int<2>>
+            >
+        >;
+};
+
+template <class T>
 using D = Canonical<typename _D<Canonical<T>>::comp>;
 
 }

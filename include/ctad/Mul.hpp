@@ -130,8 +130,8 @@ struct Mul<Int<v1>, Pow<Int<v2>, Int<-1>>> {
     using canonize =
         typename std::conditional<
             _v2==1,
-            Mul<Int<_v1>, typename Pow<Int<_v2>, Int<-1>>::canonize>,
-            Int<_v1>
+            Int<_v1>,
+            Mul<Int<_v1>, typename Pow<Int<_v2>, Int<-1>>::canonize>
         >::type;
 };
 
