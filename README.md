@@ -1,6 +1,6 @@
 # CTAD
 
-A compile time autodifferentiation library.
+A compile time autodifferentiation library for modern C++, tested under g++ 9.1.
 The library works by pattern matching symbolic mathematical expressions, and by rule-based substitution.
 
 #Usage
