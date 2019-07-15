@@ -3,7 +3,7 @@
 
 #include <type_traits>
 
-namespace CTAD {
+namespace TADSF {
 
 template <class... Ts>
 struct Div;
@@ -15,7 +15,7 @@ struct Div;
 #include "Mul.hpp"
 #include "Pow.hpp"
 
-namespace CTAD {
+namespace TADSF {
 
 template <class T1, class T2>
 struct Div<T1, T2> : public Mul<T1, Pow<T2, Int<-1>>> {};

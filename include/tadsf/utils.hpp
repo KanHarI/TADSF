@@ -1,7 +1,7 @@
 #ifndef GCD_HPP
 #define GCD_HPP
 
-namespace CTAD {
+namespace TADSF {
 
 constexpr int gcd(int a, int b) {
     if (a > b) {

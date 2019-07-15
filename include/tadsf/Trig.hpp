@@ -4,7 +4,7 @@
 #include <cmath>
 #include <string>
 
-namespace CTAD {
+namespace TADSF {
 
 template <class T>
 struct Sin;
@@ -28,7 +28,7 @@ struct Cosh;
 
 #include "Div.hpp"
 
-namespace CTAD {
+namespace TADSF {
 
 template <class T>
 struct Sin {

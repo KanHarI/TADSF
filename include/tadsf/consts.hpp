@@ -8,7 +8,7 @@
 
 #define DEF_CONST(NAME, VAL) using NAME = Div<Int<static_cast<int>(VAL*denominator+0.5)>, Int<denominator>>
 
-namespace CTAD {
+namespace TADSF {
 
 constexpr int denominator = 1000000; // Accurate to the millionth part.
 // Setting this const too high can cause overflow upon lowest common

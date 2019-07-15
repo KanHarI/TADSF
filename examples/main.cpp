@@ -2,9 +2,9 @@
 #include <iostream>
 #include <typeinfo>
 
-#include "ctad.h"
+#include "tadsf.h"
 
-using namespace CTAD;
+using namespace TADSF;
 
 int main() {
     using my_simple_func = Add<Mul<X, X, X>, Add<X, Int<2>>, Int<-2>>;

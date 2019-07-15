@@ -4,7 +4,7 @@
 #include <string>
 #include <type_traits>
 
-namespace CTAD {
+namespace TADSF {
 
 template <class... Ts>
 struct Mul;
@@ -16,7 +16,7 @@ struct Mul;
 #include "Pow.hpp"
 #include "utils.hpp"
 
-namespace CTAD {
+namespace TADSF {
 
 template <class T>
 struct Mul<T> : public T {};

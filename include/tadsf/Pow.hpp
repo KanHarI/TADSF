@@ -4,7 +4,7 @@
 #include <string>
 #include <cmath>
 
-namespace CTAD {
+namespace TADSF {
 
 template <class... Ts>
 struct Pow;
@@ -15,7 +15,7 @@ struct Pow;
 #include "utils.hpp"
 #include "consts.hpp"
 
-namespace CTAD {
+namespace TADSF {
 
 template <class Tbase, class Texp>
 struct Pow<Tbase, Texp> {
