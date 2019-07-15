@@ -6,7 +6,7 @@
 #include "Log.hpp"
 #include "Canonical.hpp"
 
-namespace CTAD {
+namespace TADSF {
 
 template <class T>
 struct _D;

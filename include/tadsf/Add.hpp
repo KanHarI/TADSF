@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace CTAD {
+namespace TADSF {
 
 template <class... Ts>
 struct Add;
@@ -15,7 +15,7 @@ struct Add;
 #include "Trig.hpp"
 #include "X.hpp"
 
-namespace CTAD {
+namespace TADSF {
 
 template <>
 struct Add<> : public Int<0> {};

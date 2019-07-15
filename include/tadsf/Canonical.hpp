@@ -1,7 +1,7 @@
 #ifndef CANONICAL_HPP
 #define CANONICAL_HPP
 
-namespace CTAD {
+namespace TADSF {
 
 template <class T1, class T2>
 constexpr bool is_same_type = false;

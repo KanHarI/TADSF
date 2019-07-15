@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace CTAD {
+namespace TADSF {
 
 struct X;
 
@@ -11,7 +11,7 @@ struct X;
 
 #include "Int.hpp"
 
-namespace CTAD {
+namespace TADSF {
 
 struct X {
     static double eval(double x) {

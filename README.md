@@ -1,10 +1,9 @@
-# CTAD
-
+# TADSF
 A compile time autodifferentiation library for modern C++, tested under g++ 9.1.
 The library works by pattern matching symbolic mathematical expressions, and by rule-based substitution.
 
 # Usage
-Include the `ctad.h` header, and use namespace `CTAD`.
+Include the `tadsf.h` header, and use namespace `TADSF`.
 Look at the `examples` folder contents for a compiling example.
 The following should be self explanatory:
 ```
